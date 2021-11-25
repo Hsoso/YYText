@@ -2292,7 +2292,9 @@ static void YYTextDrawRun(YYTextLine *line, CTRunRef run, CGContextRef context, 
                             if (mode) { // CJK glyph, need rotated
                                 CGFloat ofs = (ascent - descent) * 0.5;
                                 CGFloat w = glyphAdvances[g].width * 0.5;
-                                CGFloat x = x = line.position.x + verticalOffset + glyphPositions[g].y + (ofs - w);
+                                // 这里修复yylabel改字间距的时候文字莫名其妙位移的问题，但是不确保会否有额外的问题
+//                                CGFloat x = x = line.position.x + verticalOffset + glyphPositions[g].y + (ofs - w);
+                                CGFloat x = line.position.x;
                                 CGFloat y = -line.position.y + size.height - glyphPositions[g].x - (ofs + w);
                                 if (mode == YYTextRunGlyphDrawModeVerticalRotateMove) {
                                     x += w;
